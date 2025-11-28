@@ -1,0 +1,946 @@
+
+{
+  "entities": {
+    "User": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "User",
+      "type": "object",
+      "description": "Represents a user of the M Leather Hub system.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the user."
+        },
+        "firstName": {
+          "type": "string",
+          "description": "First name of the user."
+        },
+        "lastName": {
+          "type": "string",
+          "description": "Last name of the user."
+        },
+        "email": {
+          "type": "string",
+          "description": "Email address of the user.",
+          "format": "email"
+        },
+        "phone": {
+          "type": "string",
+          "description": "Phone number of the user."
+        },
+        "role": {
+          "type": "string",
+          "description": "Role of the user within the system (e.g., Admin, Manager, Accountant, Cashier)."
+        },
+        "lastActive": {
+          "type": "string",
+          "description": "Timestamp of the user's last activity.",
+          "format": "date-time"
+        },
+        "status": {
+          "type": "string",
+          "description": "Status of the user account (e.g., Active, Inactive, Invited)."
+        }
+      },
+      "required": [
+        "id",
+        "firstName",
+        "lastName",
+        "email",
+        "role"
+      ]
+    },
+    "Product": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Product",
+      "type": "object",
+      "description": "Represents a product sold by M Leather Hub.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the product."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the product."
+        },
+        "sku": {
+          "type": "string",
+          "description": "Stock Keeping Unit of the product."
+        },
+        "category": {
+          "type": "string",
+          "description": "Category the product belongs to."
+        },
+        "stock": {
+          "type": "number",
+          "description": "Current stock level of the product."
+        },
+        "price": {
+          "type": "number",
+          "description": "Price of the product."
+        },
+        "status": {
+          "type": "string",
+          "description": "Status of the product (e.g., Active, Inactive)."
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "URL of the product image.",
+          "format": "uri"
+        },
+        "description": {
+          "type": "string",
+          "description": "A detailed description of the product."
+        },
+        "ownerId": {
+          "type": "string",
+          "description": "The UID of the user who owns this document."
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "sku",
+        "category",
+        "stock",
+        "price",
+        "status",
+        "description",
+        "ownerId"
+      ]
+    },
+    "CartItem": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "CartItem",
+      "type": "object",
+      "description": "Represents an item in a user's shopping cart.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the cart item (usually the product ID)."
+        },
+        "quantity": {
+          "type": "number",
+          "description": "Quantity of the product in the cart."
+        },
+        "name": {
+          "type": "string",
+          "description": "Denormalized name of the product."
+        },
+        "price": {
+          "type": "number",
+          "description": "Denormalized price of the product."
+        },
+        "image": {
+          "type": "string",
+          "description": "Denormalized image URL of the product."
+        },
+        "category": {
+          "type": "string",
+          "description": "Denormalized category of the product."
+        }
+      },
+      "required": [
+        "id",
+        "quantity",
+        "name",
+        "price",
+        "image"
+      ]
+    },
+    "Order": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Order",
+      "type": "object",
+      "description": "Represents a customer order.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the order."
+        },
+        "customerId": {
+          "type": "string",
+          "description": "Reference to Customer. (Relationship: Customer 1:N Order)"
+        },
+        "orderDate": {
+          "type": "string",
+          "description": "Date and time the order was placed.",
+          "format": "date-time"
+        },
+        "amount": {
+          "type": "number",
+          "description": "Total amount of the order."
+        },
+        "status": {
+          "type": "string",
+          "description": "Status of the order (e.g., Confirmed, Processing, Shipped, Cancelled)."
+        },
+        "items": {
+          "type": "array",
+          "description": "List of items in the order. References Product and quantity.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ownerId": {
+          "type": "string",
+          "description": "The UID of the user who owns this document."
+        }
+      },
+      "required": [
+        "id",
+        "customerId",
+        "orderDate",
+        "amount",
+        "status",
+        "ownerId"
+      ]
+    },
+    "OrderItem": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "OrderItem",
+      "type": "object",
+      "description": "Represents an item within an order.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the order item."
+        },
+        "orderId": {
+          "type": "string",
+          "description": "Reference to Order. (Relationship: Order 1:N OrderItem)"
+        },
+        "productId": {
+          "type": "string",
+          "description": "Reference to Product. (Relationship: Product 1:N OrderItem)"
+        },
+        "quantity": {
+          "type": "number",
+          "description": "Quantity of the product in the order item."
+        },
+        "price": {
+          "type": "number",
+          "description": "Price of the product at the time of the order."
+        }
+      },
+      "required": [
+        "id",
+        "orderId",
+        "productId",
+        "quantity",
+        "price"
+      ]
+    },
+    "Invoice": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Invoice",
+      "type": "object",
+      "description": "Represents an invoice for a customer order.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the invoice."
+        },
+        "orderId": {
+          "type": "string",
+          "description": "Reference to Order. (Relationship: Order 1:1 Invoice)"
+        },
+        "customerId": {
+          "type": "string",
+          "description": "Reference to Customer. (Relationship: Customer 1:N Invoice)"
+        },
+        "invoiceNumber": {
+          "type": "string",
+          "description": "Invoice number."
+        },
+        "issueDate": {
+          "type": "string",
+          "description": "Date the invoice was issued.",
+          "format": "date-time"
+        },
+        "dueDate": {
+          "type": "string",
+          "description": "Date the invoice is due.",
+          "format": "date-time"
+        },
+        "amount": {
+          "type": "number",
+          "description": "Total amount of the invoice."
+        },
+        "status": {
+          "type": "string",
+          "description": "Status of the invoice (e.g., Draft, Sent, Paid, Overdue, Void)."
+        },
+        "ownerId": {
+          "type": "string",
+          "description": "The UID of the user who owns this document."
+        }
+      },
+      "required": [
+        "id",
+        "orderId",
+        "customerId",
+        "invoiceNumber",
+        "issueDate",
+        "dueDate",
+        "amount",
+        "status",
+        "ownerId"
+      ]
+    },
+    "PurchaseOrder": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "PurchaseOrder",
+      "type": "object",
+      "description": "Represents a purchase order to a supplier.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the purchase order."
+        },
+        "supplierId": {
+          "type": "string",
+          "description": "Reference to Supplier. (Relationship: Supplier 1:N PurchaseOrder)"
+        },
+        "poNumber": {
+          "type": "string",
+          "description": "Purchase order number."
+        },
+        "amount": {
+          "type": "number",
+          "description": "Total amount of the purchase order."
+        },
+        "status": {
+          "type": "string",
+          "description": "Status of the purchase order (e.g., Draft, Sent, Confirmed, Received, Cancelled)."
+        },
+        "expectedDelivery": {
+          "type": "string",
+          "description": "Expected delivery date.",
+          "format": "date-time"
+        },
+        "items": {
+          "type": "array",
+          "description": "Items associated with the purchase order",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ownerId": {
+          "type": "string",
+          "description": "The UID of the user who owns this document."
+        }
+      },
+      "required": [
+        "id",
+        "supplierId",
+        "poNumber",
+        "amount",
+        "status",
+        "expectedDelivery",
+        "ownerId"
+      ]
+    },
+    "PurchaseOrderItem": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "PurchaseOrderItem",
+      "type": "object",
+      "description": "Represents an item within a purchase order.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the purchase order item."
+        },
+        "purchaseOrderId": {
+          "type": "string",
+          "description": "Reference to PurchaseOrder. (Relationship: PurchaseOrder 1:N PurchaseOrderItem)"
+        },
+        "productId": {
+          "type": "string",
+          "description": "Reference to Product. (Relationship: Product 1:N PurchaseOrderItem)"
+        },
+        "quantity": {
+          "type": "number",
+          "description": "Quantity of the product in the purchase order."
+        },
+        "unitPrice": {
+          "type": "number",
+          "description": "Unit price of the product in the purchase order."
+        }
+      },
+      "required": [
+        "id",
+        "purchaseOrderId",
+        "productId",
+        "quantity",
+        "unitPrice"
+      ]
+    },
+    "Expense": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Expense",
+      "type": "object",
+      "description": "Represents an expense.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the expense."
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the expense."
+        },
+        "category": {
+          "type": "string",
+          "description": "Category of the expense (e.g., Salary, Rent, Utilities)."
+        },
+        "amount": {
+          "type": "number",
+          "description": "Amount of the expense."
+        },
+        "dueDate": {
+          "type": "string",
+          "description": "Due date of the expense.",
+          "format": "date-time"
+        },
+        "status": {
+          "type": "string",
+          "description": "Status of the expense (e.g., Pending, Paid, Overdue)."
+        },
+        "paymentMethod": {
+          "type": "string",
+          "description": "Method of payment for the expense (e.g., Cash, Card, Cheque)."
+        },
+        "ownerId": {
+          "type": "string",
+          "description": "The UID of the user who owns this document."
+        }
+      },
+      "required": [
+        "id",
+        "description",
+        "category",
+        "amount",
+        "dueDate",
+        "status",
+        "ownerId"
+      ]
+    },
+    "Cheque": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Cheque",
+      "type": "object",
+      "description": "Represents a cheque.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the cheque."
+        },
+        "chequeNumber": {
+          "type": "string",
+          "description": "Cheque number."
+        },
+        "amount": {
+          "type": "number",
+          "description": "Amount of the cheque."
+        },
+        "bank": {
+          "type": "string",
+          "description": "Bank the cheque is drawn on."
+        },
+        "date": {
+          "type": "string",
+          "description": "Date of the cheque.",
+          "format": "date-time"
+        },
+        "dueDate": {
+          "type": "string",
+          "description": "Due date/maturity date of the cheque.",
+          "format": "date-time"
+        },
+        "status": {
+          "type": "string",
+          "description": "Status of the cheque (e.g., Received, Deposited, Cleared, Bounced)."
+        },
+        "drawer": {
+          "type": "string",
+          "description": "Name of the drawer of the cheque."
+        },
+        "purpose": {
+          "type": "string",
+          "description": "Purpose of the cheque (e.g., Customer payment, Supplier payment)."
+        },
+        "ownerId": {
+          "type": "string",
+          "description": "The UID of the user who owns this document."
+        }
+      },
+      "required": [
+        "id",
+        "chequeNumber",
+        "amount",
+        "bank",
+        "date",
+        "dueDate",
+        "status",
+        "ownerId"
+      ]
+    },
+    "GeneralLedgerEntry": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "GeneralLedgerEntry",
+      "type": "object",
+      "description": "Represents a general ledger entry.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the ledger entry."
+        },
+        "date": {
+          "type": "string",
+          "description": "Date of the ledger entry.",
+          "format": "date-time"
+        },
+        "accountNumber": {
+          "type": "string",
+          "description": "Reference to Account. (Relationship: Account 1:N GeneralLedgerEntry)"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the ledger entry."
+        },
+        "debit": {
+          "type": "number",
+          "description": "Debit amount of the entry."
+        },
+        "credit": {
+          "type": "number",
+          "description": "Credit amount of the entry."
+        }
+      },
+      "required": [
+        "id",
+        "date",
+        "accountNumber",
+        "description",
+        "debit",
+        "credit"
+      ]
+    },
+    "Account": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Account",
+      "type": "object",
+      "description": "Represents an account in the general ledger.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the account."
+        },
+        "accountNumber": {
+          "type": "string",
+          "description": "Account number."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the account."
+        },
+        "type": {
+          "type": "string",
+          "description": "Type of account (e.g., Asset, Liability, Equity, Revenue, Expense)."
+        },
+        "balance": {
+          "type": "number",
+          "description": "Current balance of the account."
+        }
+      },
+      "required": [
+        "id",
+        "accountNumber",
+        "name",
+        "type",
+        "balance"
+      ]
+    },
+    "ChatConversation": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "ChatConversation",
+      "type": "object",
+      "description": "Represents a chat conversation between a user and the AI chatbot.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the conversation."
+        },
+        "userId": {
+          "type": "string",
+          "description": "Reference to User. (Relationship: User 1:N ChatConversation)"
+        },
+        "messages": {
+          "type": "array",
+          "description": "List of messages in the conversation.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "startTime": {
+          "type": "string",
+          "description": "Timestamp of the conversation start time.",
+          "format": "date-time"
+        },
+        "endTime": {
+          "type": "string",
+          "description": "Timestamp of the conversation end time.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "messages",
+        "startTime"
+      ]
+    },
+    "Customer": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Customer",
+      "type": "object",
+      "description": "Represents a customer.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the customer."
+        },
+        "firstName": {
+          "type": "string",
+          "description": "First name of the customer."
+        },
+        "lastName": {
+          "type": "string",
+          "description": "Last name of the customer."
+        },
+        "email": {
+          "type": "string",
+          "description": "Email address of the customer.",
+          "format": "email"
+        },
+        "phone": {
+          "type": "string",
+          "description": "Phone number of the customer."
+        },
+        "address": {
+          "type": "string",
+          "description": "Address of the customer."
+        }
+      },
+      "required": [
+        "id",
+        "firstName",
+        "lastName",
+        "email"
+      ]
+    },
+    "Supplier": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Supplier",
+      "type": "object",
+      "description": "Represents a supplier.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the supplier."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the supplier."
+        },
+        "email": {
+          "type": "string",
+          "description": "Email address of the supplier.",
+          "format": "email"
+        },
+        "phone": {
+          "type": "string",
+          "description": "Phone number of the supplier."
+        },
+        "address": {
+          "type": "string",
+          "description": "Address of the supplier."
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "email"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/users/{userId}",
+        "definition": {
+          "entityName": "User",
+          "schema": {
+            "$ref": "#/backend/entities/User"
+          },
+          "description": "Stores user profiles. Uses path-based ownership for private user data.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/cart/{cartItemId}",
+        "definition": {
+          "entityName": "CartItem",
+          "schema": {
+            "$ref": "#/backend/entities/CartItem"
+          },
+          "description": "Stores items in a user's shopping cart. Uses path-based ownership.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user."
+            },
+            {
+              "name": "cartItemId",
+              "description": "The unique identifier for the cart item (usually product ID)."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/products/{productId}",
+        "definition": {
+          "entityName": "Product",
+          "schema": {
+            "$ref": "#/backend/entities/Product"
+          },
+          "description": "Stores product information. Publicly readable, but write operations are restricted to the owner.",
+          "params": [
+            {
+              "name": "productId",
+              "description": "The unique identifier for the product."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/orders/{orderId}",
+        "definition": {
+          "entityName": "Order",
+          "schema": {
+            "$ref": "#/backend/entities/Order"
+          },
+          "description": "Stores order information. Publicly readable, but write operations are restricted to the owner.",
+          "params": [
+            {
+              "name": "orderId",
+              "description": "The unique identifier for the order."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/orders/{orderId}/orderItems/{orderItemId}",
+        "definition": {
+          "entityName": "OrderItem",
+          "schema": {
+            "$ref": "#/backend/entities/OrderItem"
+          },
+          "description": "Stores order items associated with an order. Write access is restricted to the owner of the parent order.",
+          "params": [
+            {
+              "name": "orderId",
+              "description": "The unique identifier for the order."
+            },
+            {
+              "name": "orderItemId",
+              "description": "The unique identifier for the order item."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/invoices/{invoiceId}",
+        "definition": {
+          "entityName": "Invoice",
+          "schema": {
+            "$ref": "#/backend/entities/Invoice"
+          },
+          "description": "Stores invoice information. Publicly readable, but write operations are restricted to the owner.",
+          "params": [
+            {
+              "name": "invoiceId",
+              "description": "The unique identifier for the invoice."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/purchaseOrders/{purchaseOrderId}",
+        "definition": {
+          "entityName": "PurchaseOrder",
+          "schema": {
+            "$ref": "#/backend/entities/PurchaseOrder"
+          },
+          "description": "Stores purchase order information. Publicly readable, but write operations are restricted to the owner.",
+          "params": [
+            {
+              "name": "purchaseOrderId",
+              "description": "The unique identifier for the purchase order."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/purchaseOrders/{purchaseOrderId}/purchaseOrderItems/{purchaseOrderItemId}",
+        "definition": {
+          "entityName": "PurchaseOrderItem",
+          "schema": {
+            "$ref": "#/backend/entities/PurchaseOrderItem"
+          },
+          "description": "Stores items for a purchase order. Write access is restricted to the owner of the parent purchase order.",
+          "params": [
+            {
+              "name": "purchaseOrderId",
+              "description": "The unique identifier for the purchase order."
+            },
+            {
+              "name": "purchaseOrderItemId",
+              "description": "The unique identifier for the purchase order item."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/expenses/{expenseId}",
+        "definition": {
+          "entityName": "Expense",
+          "schema": {
+            "$ref": "#/backend/entities/Expense"
+          },
+          "description": "Stores expense information. Publicly readable, but write operations are restricted to the owner.",
+          "params": [
+            {
+              "name": "expenseId",
+              "description": "The unique identifier for the expense."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/cheques/{chequeId}",
+        "definition": {
+          "entityName": "Cheque",
+          "schema": {
+            "$ref": "#/backend/entities/Cheque"
+          },
+          "description": "Stores cheque information. Access should be restricted based on roles.",
+          "params": [
+            {
+              "name": "chequeId",
+              "description": "The unique identifier for the cheque."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/generalLedger/{generalLedgerEntryId}",
+        "definition": {
+          "entityName": "GeneralLedgerEntry",
+          "schema": {
+            "$ref": "#/backend/entities/GeneralLedgerEntry"
+          },
+          "description": "Stores general ledger entries. Access should be restricted based on roles (e.g., Accountant).",
+          "params": [
+            {
+              "name": "generalLedgerEntryId",
+              "description": "The unique identifier for the general ledger entry."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/chatConversations/{chatConversationId}",
+        "definition": {
+          "entityName": "ChatConversation",
+          "schema": {
+            "$ref": "#/backend/entities/ChatConversation"
+          },
+          "description": "Stores chat conversations for a user. Uses path-based ownership for private user data.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user."
+            },
+            {
+              "name": "chatConversationId",
+              "description": "The unique identifier for the chat conversation."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/customers/{customerId}",
+        "definition": {
+          "entityName": "Customer",
+          "schema": {
+            "$ref": "#/backend/entities/Customer"
+          },
+          "description": "Stores customer information. Access should be restricted based on roles.",
+          "params": [
+            {
+              "name": "customerId",
+              "description": "The unique identifier for the customer."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/suppliers/{supplierId}",
+        "definition": {
+          "entityName": "Supplier",
+          "schema": {
+            "$ref": "#/backend/entities/Supplier"
+          },
+          "description": "Stores supplier information. Access should be restricted based on roles.",
+          "params": [
+            {
+              "name": "supplierId",
+              "description": "The unique identifier for the supplier."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/accounts/{accountId}",
+        "definition": {
+          "entityName": "Account",
+          "schema": {
+            "$ref": "#/backend/entities/Account"
+          },
+          "description": "Stores accounts for the general ledger (Chart of Accounts). Access should be restricted based on roles.",
+          "params": [
+            {
+              "name": "accountId",
+              "description": "The unique identifier for the account."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The Firestore structure is designed around a principle of public read access for most top-level collections (like products, orders), with writes strictly controlled by an `ownerId` field in each document. This allows for an open browsing experience while securing data modification to the user who created the record. Private user data (like cart and chat conversations) is stored in subcollections under `/users/{userId}` to leverage Firestore's path-based security rules, ensuring only the owner can access their personal data. Subcollections like `orderItems` and `purchaseOrderItems` are nested under their parent documents, and their security rules are designed to be checked against the parent's ownership, ensuring relational integrity and consistent permissions. This hybrid model of ownership (field-based for public data, path-based for private data) provides a secure, scalable, and efficient data architecture."
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "placeholderImages": [
+    {
+      "id": "hero-background",
+      "description": "A stylish setting showcasing leather products.",
+      "imageUrl": "https://images.unsplash.com/photo-1629958513881-a086d21383cd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxsZWF0aGVyJTIwZ29vZHN8ZW58MHx8fHwxNzYyODc1MDM4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "leather goods"
+    },
+    {
+      "id": "product-1",
+      "description": "A high-quality leather wallet.",
+      "imageUrl": "https://images.unsplash.com/photo-1582126486298-9d5194a50d82?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8bGVhdGhlciUyMHdhbGxldHxlbnwwfHx8fDE3NjI4MDY3MzF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "leather wallet"
+    },
+    {
+      "id": "product-2",
+      "description": "A durable leather belt.",
+      "imageUrl": "https://images.unsplash.com/photo-1684510334550-0c4fa8aaffd1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxsZWF0aGVyJTIwYmVsdHxlbnwwfHx8fDE3NjI3Njk3MzF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "leather belt"
+    },
+    {
+      "id": "product-3",
+      "description": "A classic leather satchel.",
+      "imageUrl": "https://images.unsplash.com/photo-1759717760080-6659d0b34e27?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxsZWF0aGVyJTIwc2F0Y2hlbHxlbnwwfHx8fDE3NjI4MzUzNjV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "leather satchel"
+    },
+    {
+      "id": "product-4",
+      "description": "A pair of elegant leather boots.",
+      "imageUrl": "https://images.unsplash.com/photo-1602250523342-d2212b96a297?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxsZWF0aGVyJTIwYm9vdHN8ZW58MHx8fHwxNzYyODY3MDY1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "leather boots"
+    },
+    {
+      "id": "product-detail-1",
+      "description": "Thumbnail 1 for a product",
+      "imageUrl": "https://images.unsplash.com/photo-1596832772762-78e213deff5f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8bGVhdGhlciUyMGRldGFpbHxlbnwwfHx8fDE3NjI4NjM3ODN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "leather detail"
+    },
+    {
+      "id": "product-detail-2",
+      "description": "Thumbnail 2 for a product",
+      "imageUrl": "https://images.unsplash.com/photo-1673960507883-5d7a5351726f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxwcm9kdWN0JTIwbWF0ZXJpYWx8ZW58MHx8fHwxNzYyODc1MDM4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "product material"
+    },
+    {
+      "id": "product-detail-3",
+      "description": "Thumbnail 3 for a product",
+      "imageUrl": "https://images.unsplash.com/photo-1617824517007-286aff12046c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxwcm9kdWN0JTIwc3RpdGNoaW5nfGVufDB8fHx8MTc2Mjg3NTAzN3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "product stitching"
+    }
+  ]
+}
